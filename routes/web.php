@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +33,23 @@ Route::get(('/about'), function () {
 
 // route belajar models route dan controller
 Route::get('/blog', [PostController::class, 'index']);
-Route::get('/post/{slug}', [PostController::class, 'show']);
+// ini dapat menggunakan Route Model Binding jadi tidak perlu paramater id
+Route::get('/post/{post:slug}', [PostController::class, 'show']);
+
+Route::get('/categories', function () {
+    return view('categories', [
+        'title' => 'Post Categories',
+        'categories' => Category::all(),
+    ]);
+});
+
+Route::get('/categories/{category:slug}', function(Category $category) {
+    return view('category', [
+        'title' => $category->name,
+        'posts' => $category->posts,
+        'category' => $category->name
+    ]);
+});
 
 // Model Products dari api
 Route::get("/products", [ProductController::class, 'products']);
