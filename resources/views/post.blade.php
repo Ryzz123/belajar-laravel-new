@@ -4,10 +4,10 @@
     
         <h2>{{ $post->title }}</h2>
 
-        <p>By. Sandhika Galih in <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+        <p>By. <a href="/authors/{{ $post->author->username }}" class="text-decoration-none">{{ $post->author->name }}</a> in <a class="text-decoration-none" href="/categories/{{ $post->categories->slug }}">{{ $post->categories->name }}</a></p>
 
 
         {!! $post->body !!}
 
-        <a href="/blog">Back To Posts</a>
+        <a class="d-block mt-3" href="/blog">Back To Posts</a>
 @endsection
